@@ -13,8 +13,8 @@ void FLevelPresetModule::StartupModule()
 	
 	ToolbarExtender = MakeShared<FExtender>();
 	ToolbarExtender->AddToolBarExtension(
-		"Play",
-		EExtensionHook::After,
+		"ProjectSettings",
+		EExtensionHook::Before,
 		nullptr,
 		FToolBarExtensionDelegate::CreateLambda([this](FToolBarBuilder& Builder)
 		{
