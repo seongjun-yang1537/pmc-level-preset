@@ -1,6 +1,8 @@
 #include "LevelPresetToolbar.h"
 
+#include "FileHelpers.h"
 #include "LevelPresetData.h"
+#include "Kismet/GameplayStatics.h"
 
 void FLevelPresetToolbar::Construct(FToolBarBuilder& Builder)
 {
@@ -25,18 +27,20 @@ void FLevelPresetToolbar::Construct(FToolBarBuilder& Builder)
 			FExecuteAction::CreateRaw(this, &FLevelPresetToolbar::OnAddLevelPreset)
 		),
 		NAME_None,
-		FText::FromString("My Button"),
-		FText::FromString("Click to Execute My Command"),
+		FText::FromString("Add Level Preset Button"),
+		FText::FromString("Click to Add Level Preset"),
 		FSlateIcon(FAppStyle::GetAppStyleSetName(), "PListEditor.Button_AddToArray"),
 		EUserInterfaceActionType::Button // 인터페이스 동작 유형
 	);
 
 	// Load Level Preset Button
 	Builder.AddToolBarButton(
-	FUIAction(),
+	FUIAction(
+		FExecuteAction::CreateRaw(this, &FLevelPresetToolbar::OnOpenLevelPreset)
+		),
 		NAME_None,
-		FText::FromString("My Button"),
-		FText::FromString("Click to Execute My Command"),
+		FText::FromString("Load Level Preset Button"),
+		FText::FromString("Click to Load Level Preset"),
 		FSlateIcon(FAppStyle::GetAppStyleSetName(), "LevelEditor.ImportScene"),
 		EUserInterfaceActionType::Button // 인터페이스 동작 유형
 	);
@@ -82,8 +86,26 @@ void FLevelPresetToolbar::OnAddLevelPreset()
 
 TSharedRef<SWidget> FLevelPresetToolbar::OnGenerateDropDownElement(FLevelPresetDataPtr Element)
 {
-	return SNew(STextBlock)
-		.Text(FText::FromString(Element->Prefix));
+	return SNew(SHorizontalBox)
+		+ SHorizontalBox::Slot()
+		.AutoWidth()
+		[
+			SNew(STextBlock)
+			.Text(FText::FromString(Element->Prefix))
+			.ToolTip(
+				SNew(SToolTip).Text(FText::FromString(Element->LevelPath)))
+		]
+		+ SHorizontalBox::Slot()
+		[
+			SNew(SSpacer)
+		]
+		+SHorizontalBox::Slot()
+		.AutoWidth()
+		[
+			SNew(STextBlock)
+			.Text(FText::FromString(Element->LevelPath))
+			.ColorAndOpacity(FLinearColor::Gray.CopyWithNewOpacity(0.2f))
+		];
 }
 
 void FLevelPresetToolbar::OnSelectLevelPreset(FLevelPresetDataPtr NewElement, ESelectInfo::Type SelectInfo)
@@ -91,8 +113,8 @@ void FLevelPresetToolbar::OnSelectLevelPreset(FLevelPresetDataPtr NewElement, ES
 	SeletedLevelPreset = NewElement;
 }
 
-void FLevelPresetToolbar::OnButtonClicked()
+void FLevelPresetToolbar::OnOpenLevelPreset()
 {
-	UE_LOG(LogTemp, Log, TEXT("Clicked"));
+	FEditorFileUtils::LoadMap(*SeletedLevelPreset->LevelPath);
 }
 #pragma endregion

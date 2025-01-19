@@ -19,7 +19,8 @@ private:
 
 	void OnAddLevelPreset();
 	
-	void OnButtonClicked();
 	TSharedRef<SWidget> OnGenerateDropDownElement(FLevelPresetDataPtr Element);
+	
 	void OnSelectLevelPreset(FLevelPresetDataPtr NewElement, ESelectInfo::Type SelectInfo);
+	void OnOpenLevelPreset();
 };
