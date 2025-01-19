@@ -21,6 +21,11 @@
 		{
 			"Name": "LevelPresetEditor",
 			"Enabled": false
+		},
+		{
+			"Name": "SlateIconBrowser",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/7f51deb58ead4fed88abc798ca7c9ae4"
 		}
 	]
 }

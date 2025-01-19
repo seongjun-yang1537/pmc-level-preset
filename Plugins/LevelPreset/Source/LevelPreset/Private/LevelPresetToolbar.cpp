@@ -1,37 +1,98 @@
 #include "LevelPresetToolbar.h"
 
+#include "LevelPresetData.h"
+
 void FLevelPresetToolbar::Construct(FToolBarBuilder& Builder)
 {
-	SeletedLevelPreset = MakeShared<TPair<FString, FString>>(TEXT("None"), TEXT("None"));
+	SeletedLevelPreset = MakeShareable(new FLevelPresetData(TEXT("None"), TEXT("None")));
 
+	Builder.AddSeparator();
+	
 	Builder.AddWidget(
-		SNew(SComboBox<LevelPresetElement>)
+		SAssignNew(LevelDropDown, SComboBox<FLevelPresetDataPtr>)
 		.OptionsSource(&LevelPresets)
 		.OnGenerateWidget_Raw(this, &FLevelPresetToolbar::OnGenerateDropDownElement)
+		.OnSelectionChanged_Raw(this, &FLevelPresetToolbar::OnSelectLevelPreset)
 		[
 			SNew(STextBlock)
-				.Text_Lambda([this](){return FText::FromString(SeletedLevelPreset->Key);})
+				.Text_Lambda([this](){return FText::FromString(SeletedLevelPreset->Prefix);})
 		]
 	);
 
-	Builder.AddWidget(
-		SNew(SButton)
-		.Text(FText::FromString(TEXT("+")))
+	// Add Level Preset Button
+	Builder.AddToolBarButton(
+	FUIAction(
+			FExecuteAction::CreateRaw(this, &FLevelPresetToolbar::OnAddLevelPreset)
+		),
+		NAME_None,
+		FText::FromString("My Button"),
+		FText::FromString("Click to Execute My Command"),
+		FSlateIcon(FAppStyle::GetAppStyleSetName(), "PListEditor.Button_AddToArray"),
+		EUserInterfaceActionType::Button // 인터페이스 동작 유형
 	);
 
-	Builder.AddWidget(
-		SNew(SButton)
-		.Text(FText::FromString(TEXT("Go")))
+	// Load Level Preset Button
+	Builder.AddToolBarButton(
+	FUIAction(),
+		NAME_None,
+		FText::FromString("My Button"),
+		FText::FromString("Click to Execute My Command"),
+		FSlateIcon(FAppStyle::GetAppStyleSetName(), "LevelEditor.ImportScene"),
+		EUserInterfaceActionType::Button // 인터페이스 동작 유형
 	);
 }
 
-TSharedRef<SWidget> FLevelPresetToolbar::OnGenerateDropDownElement(LevelPresetElement Element)
+#pragma region Private
+void FLevelPresetToolbar::OnAddLevelPreset()
+{
+	if(!GEditor)
+	{
+		return;
+	}
+
+	UWorld* World = GEditor->GetEditorWorldContext().World();
+	if(!World)
+	{
+		return;
+	}
+	ULevel* Level = World->GetCurrentLevel();
+	if(!Level)
+	{
+		return;
+	}
+	FString LevelName = Level->GetWorld()->GetName();
+	FString LevelPath = Level->GetPathName();
+
+	FLevelPresetDataPtr Ptr = MakeShareable(new FLevelPresetData(LevelName, LevelPath));
+
+	auto ItrFinded =LevelPresets.FindByPredicate([Ptr](const FLevelPresetDataPtr& x)
+	{
+		return *x == *Ptr;
+	});
+	if(ItrFinded)
+	{
+		int32 index = LevelPresets.IndexOfByKey(*ItrFinded);
+		LevelPresets.RemoveAt(index);
+	}
+
+	LevelPresets.Insert(Ptr, 0);
+	SeletedLevelPreset = Ptr;
+	LevelDropDown->RefreshOptions();
+}
+
+TSharedRef<SWidget> FLevelPresetToolbar::OnGenerateDropDownElement(FLevelPresetDataPtr Element)
 {
 	return SNew(STextBlock)
-		.Text(FText::FromString(Element->Key));
+		.Text(FText::FromString(Element->Prefix));
+}
+
+void FLevelPresetToolbar::OnSelectLevelPreset(FLevelPresetDataPtr NewElement, ESelectInfo::Type SelectInfo)
+{
+	SeletedLevelPreset = NewElement;
 }
 
 void FLevelPresetToolbar::OnButtonClicked()
 {
 	UE_LOG(LogTemp, Log, TEXT("Clicked"));
 }
+#pragma endregion

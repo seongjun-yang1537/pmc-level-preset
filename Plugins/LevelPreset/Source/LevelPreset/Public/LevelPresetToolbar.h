@@ -2,7 +2,9 @@
 
 #include "CoreMinimal.h"
 
-typedef TSharedPtr<TPair<FString, FString>> LevelPresetElement;
+struct FLevelPresetData;
+
+typedef TSharedPtr<FLevelPresetData> FLevelPresetDataPtr;
 
 class FLevelPresetToolbar
 {
@@ -10,9 +12,14 @@ public:
 	void Construct(FToolBarBuilder& Builder);
 
 private:
-	TArray<LevelPresetElement> LevelPresets;
-	LevelPresetElement SeletedLevelPreset;
+	TSharedPtr<SComboBox<FLevelPresetDataPtr>> LevelDropDown;
+	
+	TArray<FLevelPresetDataPtr> LevelPresets;
+	FLevelPresetDataPtr SeletedLevelPreset;
+
+	void OnAddLevelPreset();
 	
 	void OnButtonClicked();
-	TSharedRef<SWidget> OnGenerateDropDownElement(LevelPresetElement Element);
+	TSharedRef<SWidget> OnGenerateDropDownElement(FLevelPresetDataPtr Element);
+	void OnSelectLevelPreset(FLevelPresetDataPtr NewElement, ESelectInfo::Type SelectInfo);
 };
