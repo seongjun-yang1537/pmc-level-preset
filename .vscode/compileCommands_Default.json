@@ -1,0 +1,50 @@
+[
+	{
+		"file": "C:\\Desktop\\pmc-level-preset\\Plugins\\LevelPreset\\Source\\LevelPreset\\LevelPreset.Build.cs",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Desktop\\pmc-level-preset\\.vscode\\compileCommands_Default\\LevelPreset.25.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Desktop\\pmc-level-preset\\Plugins\\LevelPreset\\Source\\LevelPreset\\Private\\LevelPreset.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Desktop\\pmc-level-preset\\.vscode\\compileCommands_Default\\LevelPreset.25.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Desktop\\pmc-level-preset\\Plugins\\LevelPreset\\Source\\LevelPreset\\Public\\LevelPreset.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Desktop\\pmc-level-preset\\.vscode\\compileCommands_Default\\LevelPreset.25.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Desktop\\pmc-level-preset\\Source\\UnrealLevelPreset\\UnrealLevelPreset.Build.cs",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Desktop\\pmc-level-preset\\.vscode\\compileCommands_Default\\UnrealLevelPreset.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Desktop\\pmc-level-preset\\Source\\UnrealLevelPreset\\UnrealLevelPreset.cpp",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Desktop\\pmc-level-preset\\.vscode\\compileCommands_Default\\UnrealLevelPreset.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Desktop\\pmc-level-preset\\Source\\UnrealLevelPreset\\UnrealLevelPreset.h",
+		"arguments": [
+			"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.34.31933\\bin\\Hostx64\\x64\\cl.exe",
+			"@C:\\Desktop\\pmc-level-preset\\.vscode\\compileCommands_Default\\UnrealLevelPreset.1.rsp"
+		],
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Source"
+	}
+]
