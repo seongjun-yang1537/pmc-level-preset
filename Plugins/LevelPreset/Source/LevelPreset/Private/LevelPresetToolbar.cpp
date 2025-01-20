@@ -104,7 +104,7 @@ TSharedRef<SWidget> FLevelPresetToolbar::OnGenerateDropDownElement(FLevelPresetD
 		[
 			SNew(STextBlock)
 			.Text(FText::FromString(Element->LevelPath))
-			.ColorAndOpacity(FLinearColor::Gray.CopyWithNewOpacity(0.2f))
+			.ColorAndOpacity(FLinearColor::Gray.CopyWithNewOpacity(0.4f))
 		];
 }
 
